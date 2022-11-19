@@ -1,0 +1,50 @@
+<div class="recipe-details container">
+  <h3 class="recipe-title">{{ recipeInfo.strMeal }}</h3>
+
+  <div class="d-flex">
+    <img
+      class="recipe-image"
+      [src]="recipeInfo.strMealThumb"
+      [alt]="recipeInfo.strMeal"
+    >
+
+    <p class="recipe-category">{{ recipeInfo.strCategory }}</p>
+  </div>
+
+  <div class="recipe-preparation">
+    <div class="recipe-ingredients">
+      <h4>Ingredients</h4>
+
+      <ul>
+        <li *ngFor="let ingredient of recipeIngredients">
+          <span>{{ ingredient.measure }}</span>
+          <span>{{ ingredient.name }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="recipe-instructions">
+      <h4>Instruction</h4>
+
+      <p>{{ recipeInfo.strInstructions }}</p>
+    </div>
+  </div>
+
+  <a
+    *ngIf="recipeInfo.strYoutube !== ''"
+    [href]="recipeInfo.strYoutube"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    Watch this on Youtube
+  </a>
+
+  <a
+    *ngIf="recipeInfo.strSource !== ''"
+    [href]="recipeInfo.strSource"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    Go to source
+  </a>
+</div>

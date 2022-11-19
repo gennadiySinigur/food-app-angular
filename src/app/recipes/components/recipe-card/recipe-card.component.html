@@ -1,0 +1,11 @@
+<div class="recipe-card">
+  <a [routerLink]="['/recipes', recipeId]">
+    <img
+      class="recipe-cover"
+      [src]="recipeImage"
+      alt="Beef dish with sauce"
+    >
+
+    <h3 class="recipe-title">{{ title }}</h3>
+  </a>
+</div>

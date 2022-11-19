@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="recipes">
+    <div
+      *ngFor="let recipe of recipes"
+    >
+      <app-recipe-card
+        [title]="recipe.strMeal"
+        [recipeImage]="recipe.strMealThumb"
+        [recipeId]="recipe.idMeal"
+      >
+      </app-recipe-card>
+    </div>
+  </div>
+</div>

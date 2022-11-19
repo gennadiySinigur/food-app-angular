@@ -1,0 +1,30 @@
+.header {
+  background-color: darkorange;
+}
+
+.logo {
+  font-family: 'Merriweather', serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+a:hover {
+  color: #518bbc;
+}
+
+a.active-link {
+  color: white;
+}
