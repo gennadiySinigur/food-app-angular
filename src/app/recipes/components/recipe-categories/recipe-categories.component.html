@@ -9,7 +9,7 @@
         [title]="category.strCategory"
         [image]="category.strCategoryThumb"
         [id]="category.idCategory"
-        [routerLink]=""
+        [routerLink]="['/categories', category.strCategory]"
       >
       </app-recipe-card>
     </div>

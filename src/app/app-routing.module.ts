@@ -12,11 +12,11 @@ import { RecipeCategoriesComponent } from './recipes/components/recipe-categorie
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'recipes', component: RecipesComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'recipes/:id', component: RecipeDetailsComponent },
-  { path: 'categories', component: RecipeCategoriesComponent }
+  { path: 'categories', component: RecipeCategoriesComponent },
+  { path: 'categories/:id', component: RecipesComponent },
+  { path: 'categories/recipes/:id', component: RecipeDetailsComponent },
 ];
 
 @NgModule({

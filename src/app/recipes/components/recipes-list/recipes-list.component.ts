@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, switchMap } from 'rxjs';
 
 import { Recipe } from '../../models/recipe';
 import { RecipesService } from '../../services/recipes.service';
+import { Meals } from '../../models/meals';
 
 @Component({
   selector: 'app-recipes-list',
@@ -11,18 +14,23 @@ import { RecipesService } from '../../services/recipes.service';
 export class RecipesListComponent implements OnInit {
   recipes: Array<Recipe> = [];
 
-  constructor(private recipesService: RecipesService) { }
+  constructor(
+    private recipesService: RecipesService,
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
     this.getRecipes();
   }
 
   getRecipes() {
-    this.recipesService.getAll()
-      .subscribe((data) => {
-        const { meals } = data;
-        this.recipes = meals;
-      });
+    this.activatedRoute.paramMap.pipe(
+      switchMap((params): Observable<Meals> => {
+        return this.recipesService.getAll(params.get('id')!);
+      }),
+    ).subscribe((data) => {
+      this.recipes = data.meals;
+    });
   }
 
 }

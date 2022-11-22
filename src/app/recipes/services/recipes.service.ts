@@ -13,9 +13,9 @@ export class RecipesService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Meals> {
+  getAll(id: string): Observable<Meals> {
     return this.http.get<Meals>(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?a=American'
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${id}`
     );
   }
 
