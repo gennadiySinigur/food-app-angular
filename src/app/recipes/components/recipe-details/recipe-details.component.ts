@@ -10,7 +10,7 @@ import {
 import { RecipesService } from '../../services/recipes.service';
 import { RecipeDetailsInfo } from '../../models/recipe-details-info';
 import { MealDetails } from '../../models/meal-details';
-import {TransformResponseDataService} from '../../services/transform-response-data.service';
+import { TransformResponseDataService } from '../../services/transform-response-data.service';
 
 @Component({
   selector: 'app-recipe-details',
