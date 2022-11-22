@@ -5,13 +5,15 @@ import { RecipesListComponent } from './components/recipes-list/recipes-list.com
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { RouterLinkWithHref } from '@angular/router';
+import { RecipeCategoriesComponent } from './components/recipe-categories/recipe-categories.component';
 
 @NgModule({
   declarations: [
     RecipesComponent,
     RecipesListComponent,
     RecipeCardComponent,
-    RecipeDetailsComponent
+    RecipeDetailsComponent,
+    RecipeCategoriesComponent
   ],
   imports: [
     CommonModule,
