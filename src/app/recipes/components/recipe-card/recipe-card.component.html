@@ -1,9 +1,9 @@
 <div class="recipe-card">
-  <a [routerLink]="['/recipes', recipeId]">
+  <a [routerLink]="routerLink">
     <img
       class="recipe-cover"
-      [src]="recipeImage"
-      alt="Beef dish with sauce"
+      [src]="image"
+      [alt]="title"
     >
 
     <h3 class="recipe-title">{{ title }}</h3>

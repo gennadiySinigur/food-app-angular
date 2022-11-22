@@ -5,8 +5,9 @@
     >
       <app-recipe-card
         [title]="recipe.strMeal"
-        [recipeImage]="recipe.strMealThumb"
-        [recipeId]="recipe.idMeal"
+        [image]="recipe.strMealThumb"
+        [id]="recipe.idMeal"
+        [routerLink]="['/recipes', recipe.idMeal]"
       >
       </app-recipe-card>
     </div>

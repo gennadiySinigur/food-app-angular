@@ -11,8 +11,9 @@ import {
 })
 export class RecipeCardComponent implements OnInit {
   @Input() title = '';
-  @Input() recipeImage = '';
-  @Input() recipeId = '';
+  @Input() image = '';
+  @Input() id = '';
+  @Input() routerLink: Array<string> | undefined;
 
   constructor() { }
 
