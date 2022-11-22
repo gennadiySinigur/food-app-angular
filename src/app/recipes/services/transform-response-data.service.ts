@@ -14,25 +14,34 @@ import { RecipeDetailsInfo } from '../models/recipe-details-info';
 @Injectable({
   providedIn: 'root'
 })
-export class IngredientsService {
+export class TransformResponseDataService {
   ingredients: Array<Ingredient> = [];
 
-  extract(mealsData: RecipeDetailsInfo) {
+  extractIngredientsIntoArray(mealsData: RecipeDetailsInfo) {
     const mealIngredients: Array<Ingredient> = [];
+    let finalIngredientsArray: Array<Ingredient> = [];
 
+    this.extractNamesAndMeasures(mealsData, mealIngredients);
+    this.buildFinalIngredientsArray(mealIngredients, finalIngredientsArray);
+
+    this.ingredients = finalIngredientsArray;
+  }
+
+  extractNamesAndMeasures(
+    mealsData: RecipeDetailsInfo,
+    mealIngredients: Array<Ingredient>
+  ) {
     of(Object.entries(mealsData)).pipe(
-      map(data => {
-        data.map(
-          ([key, value]) => {
-            if (key.includes('strMeasure')) {
-              mealIngredients.push({ measure: value });
-            }
-
-            if (key.includes('strIngredient')) {
-              mealIngredients.push({ name: value });
-            }
+      map((data) => {
+        data.map(([key, value]) => {
+          if (key.includes('strMeasure')) {
+            mealIngredients.push({ measure: value });
           }
-        );
+
+          if (key.includes('strIngredient')) {
+            mealIngredients.push({ name: value });
+          }
+        });
       })
     ).subscribe();
 
@@ -52,24 +61,25 @@ export class IngredientsService {
      *    }
      *  }
      */
+  }
 
-    let ingredients: Array<Ingredient> = [];
+  buildFinalIngredientsArray(
+    mealIngredients: Array<Ingredient>,
+    finalIngredientsArray: Array<Ingredient>
+  ) {
+    const names$ = from(mealIngredients).pipe(
+      take(20),
+      map(value => value.name),
+    );
 
-    const names$ = from(mealIngredients)
-      .pipe(
-        take(20),
-        map(value => value.name),
-      );
-
-    const measures$ = from(mealIngredients)
-      .pipe(
-        skip(20),
-        map(value => value.measure),
-      )
+    const measures$ = from(mealIngredients).pipe(
+      skip(20),
+      map(value => value.measure),
+    );
 
     zip(names$, measures$).pipe(
       map(([name, measure]) => ({ name, measure }))
-    ).subscribe(value => ingredients.push(value));
+    ).subscribe(value => finalIngredientsArray.push(value));
 
     /** Without RxJs
      *
@@ -84,7 +94,5 @@ export class IngredientsService {
      *  measureIndex++;
      }
      **/
-
-    this.ingredients = ingredients;
   }
 }

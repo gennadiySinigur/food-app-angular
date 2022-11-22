@@ -10,7 +10,7 @@ import {
 import { RecipesService } from '../../services/recipes.service';
 import { RecipeDetailsInfo } from '../../models/recipe-details-info';
 import { MealDetails } from '../../models/meal-details';
-import {IngredientsService} from '../../services/ingredients.service';
+import {TransformResponseDataService} from '../../services/transform-response-data.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -79,7 +79,7 @@ export class RecipeDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private recipesService: RecipesService,
-    private ingredientsService: IngredientsService
+    private transformResponseDataService: TransformResponseDataService
   ) { }
 
   ngOnInit(): void {
@@ -92,11 +92,11 @@ export class RecipeDetailsComponent implements OnInit {
         return this.recipesService.getRecipeDetails(params.get('id')!);
       }),
       map((recipe) => recipe.meals[0])
-    ).subscribe((info: RecipeDetailsInfo) => {
-        this.ingredientsService.extract(info);
+    ).subscribe((recipeData: RecipeDetailsInfo) => {
+        this.transformResponseDataService.extractIngredientsIntoArray(recipeData);
 
-        this.recipeIngredients = this.ingredientsService.ingredients;
-        this.recipeInfo = info;
+        this.recipeIngredients = this.transformResponseDataService.ingredients;
+        this.recipeInfo = recipeData;
       }
     );
   }
