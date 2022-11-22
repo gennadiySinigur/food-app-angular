@@ -1,1 +1,17 @@
-<p>recipe-categories works!</p>
+<h1>Categories</h1>
+
+<div class="container">
+  <div class="list-container">
+    <div
+      *ngFor="let category of recipeCategories"
+    >
+      <app-recipe-card
+        [title]="category.strCategory"
+        [image]="category.strCategoryThumb"
+        [id]="category.idCategory"
+        [routerLink]=""
+      >
+      </app-recipe-card>
+    </div>
+  </div>
+</div>
