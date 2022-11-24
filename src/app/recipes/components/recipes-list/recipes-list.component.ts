@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 
 import { Recipe } from '../../models/recipe';
 import { RecipesService } from '../../services/recipes.service';
@@ -12,7 +12,7 @@ import { Meals } from '../../models/meals';
   styleUrls: ['./recipes-list.component.scss']
 })
 export class RecipesListComponent implements OnInit {
-  recipes: Array<Recipe> = [];
+  recipes$: Observable<Array<Recipe>> = new Observable<Array<Recipe>>();
 
   constructor(
     private recipesService: RecipesService,
@@ -24,13 +24,12 @@ export class RecipesListComponent implements OnInit {
   }
 
   getRecipes() {
-    this.activatedRoute.paramMap.pipe(
+    this.recipes$ = this.activatedRoute.paramMap.pipe(
       switchMap((params): Observable<Meals> => {
         return this.recipesService.getAll(params.get('id')!);
       }),
-    ).subscribe((data) => {
-      this.recipes = data.meals;
-    });
+      map(data => data.meals)
+    );
   }
 
 }
