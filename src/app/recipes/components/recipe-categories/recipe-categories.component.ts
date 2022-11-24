@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
 
 import { RecipesService } from '../../services/recipes.service';
 import { RecipeCategory } from '../../models/recipe-category';
@@ -9,7 +10,7 @@ import { RecipeCategory } from '../../models/recipe-category';
   styleUrls: ['./recipe-categories.component.scss']
 })
 export class RecipeCategoriesComponent implements OnInit {
-  recipeCategories: Array<RecipeCategory> = [];
+  recipeCategories$: Observable<Array<RecipeCategory>> = new Observable<Array<RecipeCategory>>();
 
   constructor(private recipesService: RecipesService) { }
 
@@ -18,8 +19,8 @@ export class RecipeCategoriesComponent implements OnInit {
   }
 
   getCategories() {
-    this.recipesService.getRecipeCategories().subscribe((data) => {
-      this.recipeCategories = data.categories;
-    });
+    this.recipeCategories$ = this.recipesService.getRecipeCategories().pipe(
+      map(data => data.categories)
+    );
   }
 }
