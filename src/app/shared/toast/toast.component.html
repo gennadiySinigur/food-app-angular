@@ -1,0 +1,14 @@
+<ng-container *ngIf="toastService.toast$ | async as toast">
+  <div class="toast">
+    <div class="container toast-container">
+      <p class="toast-text">{{ toast.text }}</p>
+
+      <button
+        class="toast-button"
+        (click)="hideToast()"
+      >
+        Dismiss
+      </button>
+    </div>
+  </div>
+</ng-container>
