@@ -18,9 +18,7 @@ export class RecipeCategoriesComponent implements OnInit {
     this.getCategories();
   }
 
-  getCategories() {
-    this.recipeCategories$ = this.recipesService.getRecipeCategories().pipe(
-      map(data => data.categories)
-    );
+  getCategories(): void {
+    this.recipeCategories$ = this.recipesService.getRecipeCategories();
   }
 }

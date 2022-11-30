@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, shareReplay, throwError } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Meals } from '../models/meals';
 import { MealDetails } from '../models/meal-details';
 import { RecipeCategories } from '../models/recipe-categories';
 import { ToastService } from '../../shared/services/toast.service';
+import {RecipeCategory} from '../models/recipe-category';
 
 const { RECIPES_BASE_URL } = environment;
 
@@ -14,6 +15,8 @@ const { RECIPES_BASE_URL } = environment;
   providedIn: 'root'
 })
 export class RecipesService {
+  cachedCategories$: Observable<Array<RecipeCategory>> | undefined;
+
   constructor(
     private http: HttpClient,
     private toastService: ToastService
@@ -37,12 +40,18 @@ export class RecipesService {
     );
   }
 
-  getRecipeCategories(): Observable<RecipeCategories> {
-    return this.http.get<RecipeCategories>(
-      `${RECIPES_BASE_URL}/categories.php`
-    ).pipe(
-      catchError(this.handleError)
-    );
+  getRecipeCategories(): Observable<Array<RecipeCategory>> {
+    if (!this.cachedCategories$) {
+      this.cachedCategories$ = this.http.get<RecipeCategories>(
+        `${RECIPES_BASE_URL}/categories.php`
+      ).pipe(
+        map(data => data.categories),
+        shareReplay({ bufferSize: 1, refCount: true }),
+        catchError(this.handleError),
+      );
+    }
+
+    return this.cachedCategories$;
   }
 
   handleError(error: HttpErrorResponse) {
