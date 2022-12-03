@@ -7,7 +7,8 @@ import { Meals } from '../models/meals';
 import { MealDetails } from '../models/meal-details';
 import { RecipeCategories } from '../models/recipe-categories';
 import { ToastService } from '../../shared/services/toast.service';
-import {RecipeCategory} from '../models/recipe-category';
+import { RecipeCategory } from '../models/recipe-category';
+import { RecipeDetailsInfo } from '../models/recipe-details-info';
 
 const { RECIPES_BASE_URL } = environment;
 
@@ -32,10 +33,11 @@ export class RecipesService {
     );
   }
 
-  getRecipeDetails(id: string): Observable<MealDetails> {
+  getRecipeDetails(id: string): Observable<RecipeDetailsInfo> {
     return this.http.get<MealDetails>(
       `${RECIPES_BASE_URL}/lookup.php?i=${id}`
     ).pipe(
+      map((recipe) => recipe.meals[0]),
       catchError(this.handleError)
     );
   }
