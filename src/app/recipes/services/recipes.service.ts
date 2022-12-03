@@ -15,7 +15,7 @@ const { RECIPES_BASE_URL } = environment;
   providedIn: 'root'
 })
 export class RecipesService {
-  cachedCategories$: Observable<Array<RecipeCategory>> | undefined;
+  private cachedCategories$: Observable<Array<RecipeCategory>> | undefined;
 
   constructor(
     private http: HttpClient,
@@ -54,7 +54,7 @@ export class RecipesService {
     return this.cachedCategories$;
   }
 
-  handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse) {
     this.toastService.show(error.message);
 
     return throwError(() => {

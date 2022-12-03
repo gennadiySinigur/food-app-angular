@@ -27,7 +27,7 @@ export class TransformResponseDataService {
     this.ingredients = finalIngredientsArray;
   }
 
-  extractNamesAndMeasures(
+  private extractNamesAndMeasures(
     mealsData: RecipeDetailsInfo,
     mealIngredients: Array<Ingredient>
   ) {
@@ -63,7 +63,7 @@ export class TransformResponseDataService {
      */
   }
 
-  buildFinalIngredientsArray(
+  private buildFinalIngredientsArray(
     mealIngredients: Array<Ingredient>,
     finalIngredientsArray: Array<Ingredient>
   ) {
