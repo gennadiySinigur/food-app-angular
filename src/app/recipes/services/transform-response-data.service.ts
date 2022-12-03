@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   from,
   map,
+  Observable,
   of,
   skip,
   take,
@@ -17,7 +18,7 @@ import { RecipeDetailsInfo } from '../models/recipe-details-info';
 export class TransformResponseDataService {
   ingredients: Array<Ingredient> = [];
 
-  extractIngredientsIntoArray(mealsData: RecipeDetailsInfo) {
+  extractIngredientsIntoArray(mealsData: RecipeDetailsInfo): void {
     const mealIngredients: Array<Ingredient> = [];
     let finalIngredientsArray: Array<Ingredient> = [];
 
@@ -30,7 +31,7 @@ export class TransformResponseDataService {
   private extractNamesAndMeasures(
     mealsData: RecipeDetailsInfo,
     mealIngredients: Array<Ingredient>
-  ) {
+  ): void {
     of(Object.entries(mealsData)).pipe(
       map((data) => {
         data.map(([key, value]) => {
@@ -66,13 +67,13 @@ export class TransformResponseDataService {
   private buildFinalIngredientsArray(
     mealIngredients: Array<Ingredient>,
     finalIngredientsArray: Array<Ingredient>
-  ) {
-    const names$ = from(mealIngredients).pipe(
+  ): void {
+    const names$: Observable<string | undefined> = from(mealIngredients).pipe(
       take(20),
       map(value => value.name),
     );
 
-    const measures$ = from(mealIngredients).pipe(
+    const measures$: Observable<string | undefined>  = from(mealIngredients).pipe(
       skip(20),
       map(value => value.measure),
     );

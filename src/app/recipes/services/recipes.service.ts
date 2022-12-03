@@ -56,7 +56,7 @@ export class RecipesService {
     return this.cachedCategories$;
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     this.toastService.show(error.message);
 
     return throwError(() => {

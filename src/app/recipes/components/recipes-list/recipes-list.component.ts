@@ -23,7 +23,7 @@ export class RecipesListComponent implements OnInit {
     this.getRecipes();
   }
 
-  getRecipes() {
+  getRecipes(): void {
     this.recipes$ = this.activatedRoute.paramMap.pipe(
       switchMap((params): Observable<Meals> => {
         return this.recipesService.getAll(params.get('id')!);

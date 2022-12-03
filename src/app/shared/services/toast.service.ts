@@ -9,11 +9,11 @@ export class ToastService {
   private toast: BehaviorSubject<Toast | null> = new BehaviorSubject<Toast | null>(null);
   toast$: Observable<Toast | null> = this.toast.asObservable();
 
-  show(text: string) {
+  show(text: string): void {
     this.toast.next({ text: text });
   }
 
-  hide() {
+  hide(): void {
     this.toast.next(null);
   }
 }

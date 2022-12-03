@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {
   Observable,
   switchMap,
@@ -31,12 +31,12 @@ export class RecipeDetailsComponent implements OnInit {
     this.getRecipeInfo();
   }
 
-  getRecipeInfo() {
+  getRecipeInfo(): void {
     this.activatedRoute.paramMap.pipe(
-      switchMap((params): Observable<RecipeDetailsInfo> => {
+      switchMap((params: ParamMap): Observable<RecipeDetailsInfo> => {
         return this.recipesService.getRecipeDetails(params.get('id')!);
       }),
-    ).subscribe((recipeData: RecipeDetailsInfo) => {
+    ).subscribe((recipeData: RecipeDetailsInfo): void => {
         this.transformResponseDataService.extractIngredientsIntoArray(recipeData);
 
         this.recipeIngredients = this.transformResponseDataService.ingredients;
