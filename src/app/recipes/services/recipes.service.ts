@@ -17,6 +17,7 @@ const { RECIPES_BASE_URL } = environment;
 })
 export class RecipesService {
   private cachedCategories$: Observable<Array<RecipeCategory>> | undefined;
+  private cachedRecipesByCategoryId$: Map<string, Observable<Meals>> = new Map<string, Observable<Meals>>;
 
   constructor(
     private http: HttpClient,
@@ -26,11 +27,18 @@ export class RecipesService {
   }
 
   getAll(id: string): Observable<Meals> {
-    return this.http.get<Meals>(
-      `${RECIPES_BASE_URL}/filter.php?c=${id}`
-    ).pipe(
-      catchError(this.handleError)
-    );
+    if (!this.cachedRecipesByCategoryId$.get(id)) {
+      let recipesByCategoryId$ = this.http.get<Meals>(
+        `${RECIPES_BASE_URL}/filter.php?c=${id}`
+      ).pipe(
+        shareReplay({ bufferSize: 1, refCount: true }),
+        catchError(this.handleError)
+      );
+
+      this.cachedRecipesByCategoryId$.set(id, recipesByCategoryId$);
+    }
+
+    return this.cachedRecipesByCategoryId$.get(id)!;
   }
 
   getRecipeDetails(id: string): Observable<RecipeDetailsInfo> {
