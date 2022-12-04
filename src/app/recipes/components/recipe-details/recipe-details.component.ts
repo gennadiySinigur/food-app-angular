@@ -34,7 +34,7 @@ export class RecipeDetailsComponent implements OnInit {
   getRecipeInfo(): void {
     this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap): Observable<RecipeDetailsInfo> => {
-        return this.recipesService.getRecipeDetails(params.get('id')!);
+        return this.recipesService.getDetailsById(params.get('id')!);
       }),
     ).subscribe((recipeData: RecipeDetailsInfo): void => {
         this.transformResponseDataService.extractIngredientsIntoArray(recipeData);

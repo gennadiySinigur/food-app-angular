@@ -26,7 +26,7 @@ export class RecipesListComponent implements OnInit {
   getRecipes(): void {
     this.recipes$ = this.activatedRoute.paramMap.pipe(
       switchMap((params): Observable<Meals> => {
-        return this.recipesService.getAll(params.get('id')!);
+        return this.recipesService.getAllById(params.get('id')!);
       }),
       map(data => data.meals)
     );

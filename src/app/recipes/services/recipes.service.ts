@@ -27,7 +27,7 @@ export class RecipesService {
     this.handleError = this.handleError.bind(this);
   }
 
-  getAll(id: string): Observable<Meals> {
+  getAllById(id: string): Observable<Meals> {
     if (!this.cachedRecipesByCategoryId$.get(id)) {
       let recipesByCategoryId$ = this.http.get<Meals>(
         `${RECIPES_BASE_URL}/filter.php?c=${id}`
@@ -42,7 +42,7 @@ export class RecipesService {
     return this.cachedRecipesByCategoryId$.get(id)!;
   }
 
-  getRecipeDetails(id: string): Observable<RecipeDetailsInfo> {
+  getDetailsById(id: string): Observable<RecipeDetailsInfo> {
     if (!this.cachedRecipeDetailsById$.get(id)) {
       let recipeDetailsById$ = this.http.get<MealDetails>(
         `${RECIPES_BASE_URL}/lookup.php?i=${id}`
@@ -58,7 +58,7 @@ export class RecipesService {
     return this.cachedRecipeDetailsById$.get(id)!;
   }
 
-  getRecipeCategories(): Observable<Array<RecipeCategory>> {
+  getCategories(): Observable<Array<RecipeCategory>> {
     if (!this.cachedCategories$) {
       this.cachedCategories$ = this.http.get<RecipeCategories>(
         `${RECIPES_BASE_URL}/categories.php`

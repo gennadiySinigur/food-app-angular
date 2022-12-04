@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { RecipesService } from '../../services/recipes.service';
 import { RecipeCategory } from '../../models/recipe-category';
@@ -19,6 +19,6 @@ export class RecipeCategoriesComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.recipeCategories$ = this.recipesService.getRecipeCategories();
+    this.recipeCategories$ = this.recipesService.getCategories();
   }
 }
