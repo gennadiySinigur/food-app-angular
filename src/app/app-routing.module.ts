@@ -8,6 +8,7 @@ import { RegistrationComponent } from './core/registration/registration.componen
 import { LoginComponent } from './core/login/login.component';
 import { RecipeDetailsComponent } from './recipes/components/recipe-details/recipe-details.component';
 import { RecipeCategoriesComponent } from './recipes/components/recipe-categories/recipe-categories.component';
+import { MyRecipesComponent } from './recipes/components/my-recipes/my-recipes.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'categories', component: RecipeCategoriesComponent },
   { path: 'categories/:id', component: RecipesComponent },
   { path: 'categories/recipes/:id', component: RecipeDetailsComponent },
+  { path: 'my-recipes', component: MyRecipesComponent },
 ];
 
 @NgModule({
