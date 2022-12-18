@@ -7,6 +7,7 @@ import { RecipeDetailsComponent } from './components/recipe-details/recipe-detai
 import { RouterLinkWithHref } from '@angular/router';
 import { RecipeCategoriesComponent } from './components/recipe-categories/recipe-categories.component';
 import { MyRecipesComponent } from './components/my-recipes/my-recipes.component';
+import { AddRecipeFormComponent } from './components/add-recipe-form/add-recipe-form.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MyRecipesComponent } from './components/my-recipes/my-recipes.component
     RecipeCardComponent,
     RecipeDetailsComponent,
     RecipeCategoriesComponent,
-    MyRecipesComponent
+    MyRecipesComponent,
+    AddRecipeFormComponent
   ],
   imports: [
     CommonModule,
