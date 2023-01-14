@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 
 import { MyRecipesService } from '../../services/my-recipes.service';
@@ -11,6 +11,9 @@ import { MyRecipesService } from '../../services/my-recipes.service';
 export class AddRecipeFormComponent implements OnInit {
   addRecipeForm!: FormGroup;
   ingredients: FormArray = new FormArray<FormControl>([new FormControl()]);
+
+  @Output()
+  onCancel: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,5 +64,9 @@ export class AddRecipeFormComponent implements OnInit {
     console.log('form', this.addRecipeForm.value);
 
     this.myRecipesService.save(this.addRecipeForm.value);
+  }
+
+  cancel(): void {
+    this.onCancel.emit();
   }
 }

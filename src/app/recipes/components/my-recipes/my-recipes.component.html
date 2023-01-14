@@ -1,9 +1,18 @@
 <h1 class="my-recipes-heading">My Recipes</h1>
 
 <div class="container">
-  <button class="button add-recipe-button">
+  <button
+    *ngIf="!isFormDisplayed"
+    (click)="toggleForm()"
+    class="button add-recipe-button"
+  >
     Add recipe
   </button>
 
-  <app-add-recipe-form></app-add-recipe-form>
+  <div *ngIf="isFormDisplayed">
+    <app-add-recipe-form
+      (onCancel)="toggleForm()"
+    >
+    </app-add-recipe-form>
+  </div>
 </div>

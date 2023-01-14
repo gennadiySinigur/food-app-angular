@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-recipes.component.scss']
 })
 export class MyRecipesComponent implements OnInit {
+  isFormDisplayed = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  toggleForm(): void {
+    this.isFormDisplayed = !this.isFormDisplayed;
+  }
 }
