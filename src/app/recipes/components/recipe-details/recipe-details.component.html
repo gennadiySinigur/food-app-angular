@@ -63,4 +63,13 @@
       Go to source
     </a>
   </div>
+
+  <div *ngIf="isMyRecipe">
+    <button
+      (click)="editRecipe()"
+      class="button add-recipe-button"
+    >
+      Edit
+    </button>
+  </div>
 </div>

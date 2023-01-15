@@ -25,6 +25,8 @@ export class RecipeDetailsComponent implements OnInit {
 
   recipeIngredients: Array<Ingredient> = [];
 
+  id!: string | null;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -34,6 +36,8 @@ export class RecipeDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+
     this.getCurrentPath();
 
     if (this.currentPath.includes('my-recipes')) {
@@ -78,4 +82,9 @@ export class RecipeDetailsComponent implements OnInit {
 
     this.isMyRecipe = true;
   }
+
+  editRecipe(): void {
+    this.router.navigate([`my-recipes/${this.id}/update`]);
+  }
+
 }
