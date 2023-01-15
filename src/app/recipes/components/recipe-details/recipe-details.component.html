@@ -71,7 +71,7 @@
         <div class="recipe-ingredients">
           <h4>Ingredients</h4>
 
-          <ul>
+          <ul *ngIf="recipeIngredients$ | async as recipeIngredients">
             <li *ngFor="let ingredient of recipeIngredients">
               <span>{{ ingredient.measure }}</span>
               <span>{{ ingredient.name }}</span>

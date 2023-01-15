@@ -18,7 +18,7 @@ import { RecipeDetailsInfo } from '../models/recipe-details-info';
 export class TransformResponseDataService {
   ingredients: Array<Ingredient> = [];
 
-  extractIngredientsIntoArray(mealsData: RecipeDetailsInfo): void {
+  extractIngredientsIntoArray(mealsData: RecipeDetailsInfo): Array<Ingredient> {
     const mealIngredients: Array<Ingredient> = [];
     let finalIngredientsArray: Array<Ingredient> = [];
 
@@ -26,6 +26,8 @@ export class TransformResponseDataService {
     this.buildFinalIngredientsArray(mealIngredients, finalIngredientsArray);
 
     this.ingredients = finalIngredientsArray;
+
+    return finalIngredientsArray;
   }
 
   private extractNamesAndMeasures(

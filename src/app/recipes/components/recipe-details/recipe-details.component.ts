@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {
+  map,
   Observable,
   switchMap,
 } from 'rxjs';
@@ -19,12 +20,10 @@ import { MyRecipeWithId } from '../../models/my-recipe-with-id';
 })
 export class RecipeDetailsComponent implements OnInit {
   recipeInfo$: Observable<RecipeDetailsInfo> | undefined;
+  recipeIngredients$: Observable<Array<Ingredient>> = new Observable<Array<Ingredient>>();
   myRecipeInfo$: Observable<MyRecipeWithId> | undefined;
 
   currentPath: string = '';
-
-  recipeIngredients: Array<Ingredient> = [];
-
   id!: string | null;
 
   constructor(
@@ -42,6 +41,12 @@ export class RecipeDetailsComponent implements OnInit {
     this.recipeInfo$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap): Observable<RecipeDetailsInfo> => {
         return this.recipesService.getDetailsById(params.get('id')!);
+      }),
+    );
+
+    this.recipeIngredients$ = this.recipeInfo$.pipe(
+      map((recipeData: RecipeDetailsInfo) => {
+        return this.transformResponseDataService.extractIngredientsIntoArray(recipeData);
       }),
     );
 
