@@ -129,6 +129,10 @@ app-my-recipes {
   margin-bottom: 1rem;
 }
 
+.edit-form-title {
+  margin-top: 2rem;
+}
+
 .form {
   display: block;
   margin-bottom: 2rem;
@@ -162,6 +166,12 @@ app-my-recipes {
   .form-control {
     margin: 0;
   }
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: .6rem;
 }
 
 textarea {
