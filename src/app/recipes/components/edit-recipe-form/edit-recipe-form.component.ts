@@ -75,6 +75,6 @@ export class EditRecipeFormComponent implements OnInit {
   }
 
   cancel(): void {
+    this.router.navigate([`my-recipes/${this.id}`]);
   }
-
 }
