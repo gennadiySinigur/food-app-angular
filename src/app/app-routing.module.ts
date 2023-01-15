@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'categories/:id', component: RecipesComponent },
   { path: 'categories/recipes/:id', component: RecipeDetailsComponent },
   { path: 'my-recipes', component: MyRecipesComponent },
+  { path: 'my-recipes/:id', component: RecipeDetailsComponent }
 ];
 
 @NgModule({
