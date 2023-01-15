@@ -35,9 +35,22 @@ export class RecipeDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.currentPath = this.activatedRoute.snapshot.url.join('/');
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.getCurrentPath();
+    this.getRecipeId();
 
+    this.getRecipeInfo();
+    this.getMyRecipeInfo();
+  }
+
+  getCurrentPath(): void {
+    this.currentPath = this.activatedRoute.snapshot.url.join('/');
+  }
+
+  getRecipeId(): void {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+  }
+
+  getRecipeInfo(): void {
     this.recipeInfo$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap): Observable<RecipeDetailsInfo> => {
         return this.recipesService.getDetailsById(params.get('id')!);
@@ -49,7 +62,9 @@ export class RecipeDetailsComponent implements OnInit {
         return this.transformResponseDataService.extractIngredientsIntoArray(recipeData);
       }),
     );
+  }
 
+  getMyRecipeInfo(): void {
     this.myRecipeInfo$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap): Observable<MyRecipeWithId> => {
         return this.myRecipesService.getById(params.get('id')!);
