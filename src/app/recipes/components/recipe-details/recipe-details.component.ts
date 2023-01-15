@@ -18,10 +18,10 @@ import { MyRecipeWithId } from '../../models/my-recipe-with-id';
   styleUrls: ['./recipe-details.component.scss']
 })
 export class RecipeDetailsComponent implements OnInit {
-  recipeInfo!: RecipeDetailsInfo;
-  myRecipeInfo!: MyRecipeWithId;
+  recipeInfo$: Observable<RecipeDetailsInfo> | undefined;
+  myRecipeInfo$: Observable<MyRecipeWithId> | undefined;
+
   currentPath: string = '';
-  isMyRecipe = false;
 
   recipeIngredients: Array<Ingredient> = [];
 
@@ -36,51 +36,20 @@ export class RecipeDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.currentPath = this.activatedRoute.snapshot.url.join('/');
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.getCurrentPath();
-
-    if (this.currentPath.includes('my-recipes')) {
-      this.getMyRecipeInfo();
-
-      return;
-    }
-
-    this.getRecipeInfo();
-  }
-
-  getCurrentPath() {
-    this.activatedRoute.url.subscribe(url => {
-      this.currentPath = url.join('/');
-    });
-  }
-
-  getRecipeInfo(): void {
-    this.activatedRoute.paramMap.pipe(
+    this.recipeInfo$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap): Observable<RecipeDetailsInfo> => {
         return this.recipesService.getDetailsById(params.get('id')!);
       }),
-    ).subscribe((recipeData: RecipeDetailsInfo): void => {
-        this.transformResponseDataService.extractIngredientsIntoArray(recipeData);
-
-        this.recipeIngredients = this.transformResponseDataService.ingredients;
-        this.recipeInfo = recipeData;
-      }
     );
 
-    this.isMyRecipe = false;
-  }
-
-  getMyRecipeInfo(): void {
-    this.activatedRoute.paramMap.pipe(
+    this.myRecipeInfo$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap): Observable<MyRecipeWithId> => {
         return this.myRecipesService.getById(params.get('id')!);
-      })
-    ).subscribe((recipeData: MyRecipeWithId) => {
-      this.myRecipeInfo = recipeData;
-    });
-
-    this.isMyRecipe = true;
+      }),
+    );
   }
 
   editRecipe(): void {
