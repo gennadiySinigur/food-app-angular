@@ -9,6 +9,7 @@ import { LoginComponent } from './core/login/login.component';
 import { RecipeDetailsComponent } from './recipes/components/recipe-details/recipe-details.component';
 import { RecipeCategoriesComponent } from './recipes/components/recipe-categories/recipe-categories.component';
 import { MyRecipesComponent } from './recipes/components/my-recipes/my-recipes.component';
+import { EditRecipeFormComponent } from './recipes/components/edit-recipe-form/edit-recipe-form.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'categories/:id', component: RecipesComponent },
   { path: 'categories/recipes/:id', component: RecipeDetailsComponent },
   { path: 'my-recipes', component: MyRecipesComponent },
-  { path: 'my-recipes/:id', component: RecipeDetailsComponent }
+  { path: 'my-recipes/:id', component: RecipeDetailsComponent },
+  { path: 'my-recipes/:id/update', component: EditRecipeFormComponent }
 ];
 
 @NgModule({
