@@ -61,8 +61,6 @@ export class AddRecipeFormComponent implements OnInit {
       return;
     }
 
-    console.log('form', this.addRecipeForm.value);
-
     this.myRecipesService.save(this.addRecipeForm.value);
   }
 

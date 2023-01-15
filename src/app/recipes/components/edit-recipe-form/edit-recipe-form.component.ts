@@ -75,7 +75,6 @@ export class EditRecipeFormComponent implements OnInit {
   }
 
   cancel(): void {
-    console.log('cancel');
   }
 
 }
