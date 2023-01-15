@@ -25,10 +25,10 @@ export class MyRecipesService {
     return this.http.get<MyRecipeWithId>(`http://localhost:8080/api/my-recipes/${id}`);
   }
 
-  updateById(id: string | null, updatedRecipe: MyRecipeWithId): void {
-    this.http.put<MyRecipeWithId>(
+  updateById(id: string | null, updatedRecipe: MyRecipeWithId): Observable<MyRecipeWithId> {
+    return this.http.put<MyRecipeWithId>(
       `http://localhost:8080/api/my-recipes/${id}/update`,
       updatedRecipe
-    ).subscribe();
+    );
   }
 }
