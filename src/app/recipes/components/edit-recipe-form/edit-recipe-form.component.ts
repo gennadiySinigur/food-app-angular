@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { MyRecipesService } from '../../services/my-recipes.service';
 
@@ -16,7 +16,8 @@ export class EditRecipeFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private myRecipesService: MyRecipesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
 
   }
@@ -66,9 +67,11 @@ export class EditRecipeFormComponent implements OnInit {
       return;
     }
 
-    console.log('form', this.editRecipeForm.value);
+    const updatedRecipe = this.editRecipeForm.value;
 
-    this.myRecipesService.updateById(this.id, this.editRecipeForm.value);
+    this.myRecipesService.updateById(this.id, updatedRecipe).subscribe();
+
+    this.router.navigate([`my-recipes/${this.id}`]);
   }
 
   cancel(): void {
