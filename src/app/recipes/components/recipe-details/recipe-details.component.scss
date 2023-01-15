@@ -39,6 +39,11 @@ h4 {
   margin: 0 1.5rem 1.5rem 0;
 }
 
+.my-recipe-image {
+  height: 320px;
+  object-fit: cover;
+}
+
 .recipe-preparation {
   display: flex;
   gap: 5rem;
