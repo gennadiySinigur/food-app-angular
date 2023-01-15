@@ -15,4 +15,18 @@
     >
     </app-add-recipe-form>
   </div>
+
+  <div class="list-container">
+    <div
+      *ngFor="let recipe of recipes$ | async"
+    >
+      <app-recipe-card
+        [title]="recipe.title"
+        [image]="recipe.imageAddress"
+        [id]="recipe.id"
+        [routerLink]="['/my-recipes', recipe.id]"
+      >
+      </app-recipe-card>
+    </div>
+  </div>
 </div>
