@@ -12,9 +12,8 @@ export class MyRecipesService {
 
   constructor(private http: HttpClient) { }
 
-  save(recipe: MyRecipe): void {
-    this.http.post<MyRecipe>('http://localhost:8080/api/my-recipes/add', recipe)
-      .subscribe();
+  save(recipe: MyRecipe): Observable<MyRecipeWithId> {
+    return this.http.post<MyRecipeWithId>('http://localhost:8080/api/my-recipes/add', recipe);
   }
 
   getAll(): Observable<Array<MyRecipeWithId>> {
