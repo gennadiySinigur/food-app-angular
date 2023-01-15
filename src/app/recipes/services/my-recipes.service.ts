@@ -21,7 +21,14 @@ export class MyRecipesService {
     return this.http.get<Array<MyRecipeWithId>>('http://localhost:8080/api/my-recipes');
   }
 
-  getById(id: string): Observable<MyRecipeWithId> {
-    return this.http.get<MyRecipeWithId>(`http://localhost:8080/api/my-recipes/${id}`)
+  getById(id: string | null): Observable<MyRecipeWithId> {
+    return this.http.get<MyRecipeWithId>(`http://localhost:8080/api/my-recipes/${id}`);
+  }
+
+  updateById(id: string | null, updatedRecipe: MyRecipeWithId): void {
+    this.http.put<MyRecipeWithId>(
+      `http://localhost:8080/api/my-recipes/${id}/update`,
+      updatedRecipe
+    ).subscribe();
   }
 }
