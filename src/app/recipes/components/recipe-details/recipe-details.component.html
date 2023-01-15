@@ -1,75 +1,111 @@
-<div class="recipe-details container">
-  <h3 class="recipe-title">
-    {{ isMyRecipe ? myRecipeInfo?.title : recipeInfo?.strMeal }}
-  </h3>
+<div *ngIf="currentPath.includes('my-recipes'); else recipeInfoBlock"
+     class="recipe-details container"
+>
+  <ng-container *ngIf="myRecipeInfo$ | async as myRecipeData">
+    <h3 class="recipe-title">
+      {{ myRecipeData?.title }}
+    </h3>
 
-  <div class="d-flex">
-    <img
-      class="recipe-image"
-      [src]="isMyRecipe ? myRecipeInfo?.imageAddress : recipeInfo?.strMealThumb"
-      [alt]="isMyRecipe ? myRecipeInfo?.title : recipeInfo?.strMeal"
-    >
+    <div class="d-flex">
+      <img
+        class="recipe-image"
+        [src]="myRecipeData?.imageAddress"
+        [alt]="myRecipeData?.title"
+      >
 
-    <p class="recipe-category">
-      {{ isMyRecipe ? myRecipeInfo?.category : recipeInfo?.strCategory }}
-    </p>
-  </div>
+      <p class="recipe-category">
+        {{ myRecipeData?.category }}
+      </p>
+    </div>
 
-  <div class="recipe-preparation">
-    <div class="recipe-ingredients">
-      <h4>Ingredients</h4>
+    <div class="recipe-preparation">
+      <div class="recipe-ingredients">
+        <h4>Ingredients</h4>
 
-      <ul *ngIf="isMyRecipe; else otherRecipe">
-        <li *ngFor="let ingredient of myRecipeInfo?.ingredients">
-          <span>{{ ingredient.measure }}</span>
-          <span>{{ ingredient.name }}</span>
-        </li>
-      </ul>
-
-      <ng-template #otherRecipe>
         <ul>
-          <li *ngFor="let ingredient of recipeIngredients">
+          <li *ngFor="let ingredient of myRecipeData?.ingredients">
             <span>{{ ingredient.measure }}</span>
             <span>{{ ingredient.name }}</span>
           </li>
         </ul>
-      </ng-template>
+      </div>
+
+      <div class="recipe-instructions">
+        <h4>Instruction</h4>
+
+        <p>
+          {{ myRecipeData?.instruction }}
+        </p>
+      </div>
     </div>
 
-    <div class="recipe-instructions">
-      <h4>Instruction</h4>
-
-      <p>
-        {{ isMyRecipe ? myRecipeInfo?.instruction : recipeInfo?.strInstructions }}
-      </p>
-    </div>
-  </div>
-
-  <div *ngIf="!isMyRecipe">
-    <a
-      *ngIf="recipeInfo?.strYoutube"
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      Watch this on Youtube
-    </a>
-
-    <a
-      *ngIf="recipeInfo?.strSource !== ''"
-      [href]="recipeInfo?.strSource"
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      Go to source
-    </a>
-  </div>
-
-  <div *ngIf="isMyRecipe">
     <button
       (click)="editRecipe()"
       class="button add-recipe-button"
     >
       Edit
     </button>
-  </div>
+  </ng-container>
 </div>
+
+<ng-template #recipeInfoBlock>
+  <ng-container *ngIf="recipeInfo$ | async as recipeData">
+    <div class="recipe-details container">
+      <h3 class="recipe-title">
+        {{ recipeData?.strMeal }}
+      </h3>
+
+      <div class="d-flex">
+        <img
+          class="recipe-image"
+          [src]="recipeData?.strMealThumb"
+          [alt]="recipeData?.strMeal"
+        >
+
+        <p class="recipe-category">
+          {{ recipeData?.strCategory }}
+        </p>
+      </div>
+
+      <div class="recipe-preparation">
+        <div class="recipe-ingredients">
+          <h4>Ingredients</h4>
+
+          <ul>
+            <li *ngFor="let ingredient of recipeIngredients">
+              <span>{{ ingredient.measure }}</span>
+              <span>{{ ingredient.name }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="recipe-instructions">
+          <h4>Instruction</h4>
+
+          <p>
+            {{ recipeData?.strInstructions }}
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <a
+          *ngIf="recipeData?.strYoutube"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Watch this on Youtube
+        </a>
+
+        <a
+          *ngIf="recipeData?.strSource !== ''"
+          [href]="recipeData?.strSource"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Go to source
+        </a>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
