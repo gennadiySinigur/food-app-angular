@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { MyRecipesService } from '../../services/my-recipes.service';
 
@@ -15,9 +16,14 @@ export class AddRecipeFormComponent implements OnInit {
   @Output()
   onCancel: EventEmitter<void> = new EventEmitter<void>();
 
+  @Output()
+  recipeAdded: EventEmitter<void> = new EventEmitter<void>();
+
+
   constructor(
     private formBuilder: FormBuilder,
-    private myRecipesService: MyRecipesService
+    private myRecipesService: MyRecipesService,
+    private router: Router
   ) {
     this.ingredients = this.formBuilder.array([
       this.formBuilder.group({
@@ -61,7 +67,12 @@ export class AddRecipeFormComponent implements OnInit {
       return;
     }
 
-    this.myRecipesService.save(this.addRecipeForm.value);
+    this.myRecipesService.save(this.addRecipeForm.value)
+      .subscribe(() => {
+        this.recipeAdded.emit();
+      });
+
+    this.router.navigate([`my-recipes`]);
   }
 
   cancel(): void {

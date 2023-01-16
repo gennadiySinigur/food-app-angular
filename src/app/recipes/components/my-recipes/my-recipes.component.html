@@ -11,6 +11,7 @@
 
   <div *ngIf="isFormDisplayed">
     <app-add-recipe-form
+      (recipeAdded)="handleRecipeAdded()"
       (onCancel)="toggleForm()"
     >
     </app-add-recipe-form>

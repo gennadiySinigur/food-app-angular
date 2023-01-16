@@ -26,4 +26,9 @@ export class MyRecipesComponent implements OnInit {
   toggleForm(): void {
     this.isFormDisplayed = !this.isFormDisplayed;
   }
+
+  handleRecipeAdded(): void {
+    this.getRecipes();
+    this.isFormDisplayed = false;
+  }
 }
