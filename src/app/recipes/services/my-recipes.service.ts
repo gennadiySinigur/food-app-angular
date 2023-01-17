@@ -30,4 +30,8 @@ export class MyRecipesService {
       updatedRecipe
     );
   }
+
+  deleteById(id: string | null): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8080/api/my-recipes/${id}/delete`);
+  }
 }
