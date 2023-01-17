@@ -5,6 +5,7 @@ import {
   Observable,
   switchMap,
 } from 'rxjs';
+import { ViewportScroller } from '@angular/common';
 
 import { Ingredient } from '../../models/ingredient';
 import { RecipesService } from '../../services/recipes.service';
@@ -12,6 +13,8 @@ import { RecipeDetailsInfo } from '../../models/recipe-details-info';
 import { TransformResponseDataService } from '../../services/transform-response-data.service';
 import { MyRecipesService } from '../../services/my-recipes.service';
 import { MyRecipeWithId } from '../../models/my-recipe-with-id';
+import { ToastService } from '../../../shared/services/toast.service';
+import { ConfirmationService } from '../../../shared/services/confirmation.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -31,7 +34,10 @@ export class RecipeDetailsComponent implements OnInit {
     private router: Router,
     private recipesService: RecipesService,
     private transformResponseDataService: TransformResponseDataService,
-    private myRecipesService: MyRecipesService
+    private myRecipesService: MyRecipesService,
+    private toastService: ToastService,
+    private viewportScroller: ViewportScroller,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -76,4 +82,22 @@ export class RecipeDetailsComponent implements OnInit {
     this.router.navigate([`my-recipes/${this.id}/update`]);
   }
 
+  deleteRecipe() {
+    this.toastService.show(
+      "confirmation",
+      "Are you sure you want to delete this recipe?",
+    );
+
+    this.viewportScroller.scrollToPosition([0, 0]);
+
+    this.confirmationService.confirm().subscribe(result => {
+      if (result) {
+        this.toastService.hide();
+        this.myRecipesService.deleteById(this.id).subscribe();
+        this.router.navigate([`my-recipes`]);
+      } else {
+        this.toastService.hide();
+      }
+    });
+  }
 }
