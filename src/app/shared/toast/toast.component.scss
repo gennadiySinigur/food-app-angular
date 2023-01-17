@@ -10,6 +10,12 @@
   align-items: center;
 }
 
+.toast-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
 .toast-button {
   font-size: 1rem;
   color: white;
@@ -22,5 +28,13 @@
     cursor: pointer;
     color: #d73152;
     background: white;
+  }
+}
+
+.confirm-button {
+  background-color: darkolivegreen;
+
+  &:hover {
+    color: darkolivegreen;
   }
 }
