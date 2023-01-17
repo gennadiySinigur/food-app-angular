@@ -3,12 +3,22 @@
     <div class="container toast-container">
       <p class="toast-text">{{ toast.text }}</p>
 
-      <button
-        class="toast-button"
-        (click)="hideToast()"
-      >
-        Dismiss
-      </button>
+      <div class="toast-actions">
+        <button
+          class="toast-button dismiss-button"
+          (click)="hideToast()"
+        >
+          Dismiss
+        </button>
+
+        <button
+          *ngIf="toastService.toastType === 'confirmation'"
+          class="toast-button confirm-button"
+          (click)="confirm()"
+        >
+          Confirm
+        </button>
+      </div>
     </div>
   </div>
 </ng-container>

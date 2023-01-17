@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastService } from '../services/toast.service';
+import { ConfirmationService } from '../services/confirmation.service';
 
 @Component({
   selector: 'app-toast',
@@ -8,7 +9,10 @@ import { ToastService } from '../services/toast.service';
 })
 export class ToastComponent implements OnInit {
 
-  constructor(public toastService: ToastService) { }
+  constructor(
+    public toastService: ToastService,
+    public confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -17,4 +21,7 @@ export class ToastComponent implements OnInit {
     this.toastService.hide();
   }
 
+  confirm() {
+    this.confirmationService.confirmYes();
+  }
 }
