@@ -73,7 +73,7 @@ export class RecipesService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    this.toastService.show(error.message);
+    this.toastService.show('error', error.message);
 
     return throwError(() => {
       return error;
