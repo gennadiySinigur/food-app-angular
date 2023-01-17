@@ -8,9 +8,18 @@ import { Toast } from '../models/toast';
 export class ToastService {
   private toast: BehaviorSubject<Toast | null> = new BehaviorSubject<Toast | null>(null);
   toast$: Observable<Toast | null> = this.toast.asObservable();
+  toastType = 'error';
 
-  show(text: string): void {
-    this.toast.next({ text: text });
+  show(type: string, text: string): void {
+    this.toast.next({ type: type, text: text });
+
+    if (type === 'error') {
+      this.toastType = 'error';
+
+      return;
+    }
+
+    this.toastType = 'confirmation';
   }
 
   hide(): void {
