@@ -1,7 +1,11 @@
-<div *ngIf="currentPath.includes('my-recipes'); else recipeInfoBlock"
-     class="recipe-details container"
+<div
+  *ngIf="currentPath.includes('my-recipes'); else recipeInfoBlock"
+  class="recipe-details container"
+  [ngClass]="{'blocked': (blockUIService.isBlocked$ | async) }"
 >
-  <ng-container *ngIf="myRecipeInfo$ | async as myRecipeData">
+  <ng-container
+    *ngIf="myRecipeInfo$ | async as myRecipeData"
+  >
     <h3 class="recipe-title">
       {{ myRecipeData?.title }}
     </h3>
