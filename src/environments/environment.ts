@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   RECIPES_BASE_URL: 'https://www.themealdb.com/api/json/v1/1',
+  MY_RECIPES_BASE_URL: 'http://localhost:8080/api',
 };
 
 /*
