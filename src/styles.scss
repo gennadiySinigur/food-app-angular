@@ -44,6 +44,11 @@ p {
   line-height: 1.75;
 }
 
+.blocked {
+  pointer-events: none;
+  filter: blur(4px) grayscale(20%);
+}
+
 .container {
   max-width: 1200px;
   width: 96%;
