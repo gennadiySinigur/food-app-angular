@@ -1,4 +1,6 @@
-<div class="header">
+<div class="header"
+     [ngClass]="{'blocked': (blockUIService.isBlocked$ | async) }"
+>
   <div class="container">
     <nav class="navbar">
       <a href="/" class="logo">Food App</a>

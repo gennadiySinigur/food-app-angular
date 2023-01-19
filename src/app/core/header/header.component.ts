@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLinkActive } from '@angular/router';
+
+import { BlockUIService } from '../../shared/services/block-ui.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { RouterLinkActive } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(protected blockUIService: BlockUIService) { }
 
   ngOnInit(): void {
   }
