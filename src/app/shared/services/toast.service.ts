@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { Toast } from '../models/toast';
 
 @Injectable({
@@ -11,15 +12,9 @@ export class ToastService {
   toastType = 'error';
 
   show(type: string, text: string): void {
+    this.toastType = type;
+
     this.toast.next({ type: type, text: text });
-
-    if (type === 'error') {
-      this.toastType = 'error';
-
-      return;
-    }
-
-    this.toastType = 'confirmation';
   }
 
   hide(): void {
