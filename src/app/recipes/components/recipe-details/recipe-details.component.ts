@@ -116,7 +116,9 @@ export class RecipeDetailsComponent implements OnInit {
       if (result) {
         this.toastService.hide();
 
-        this.myRecipesService.deleteById(this.id).subscribe();
+        this.myRecipesService.deleteById(this.id).subscribe(() => {
+          this.myRecipesService.getAll().subscribe();
+        });
 
         this.router.navigate([`my-recipes`]);
       } else {

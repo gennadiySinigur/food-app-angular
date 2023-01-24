@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { MyRecipesService } from '../../services/my-recipes.service';
 import { MyRecipeWithId } from '../../models/my-recipe-with-id';
@@ -20,7 +20,11 @@ export class MyRecipesComponent implements OnInit {
   }
 
   getRecipes(): void {
-    this.recipes$ = this.myRecipesService.getAll();
+    this.recipes$ = this.myRecipesService.getAll().pipe(
+      tap(() => {
+        this.recipes$ = this.myRecipesService.recipes$;
+      })
+    );
   }
 
   toggleForm(): void {

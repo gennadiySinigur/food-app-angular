@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { MyRecipe } from '../models/my-recipe';
@@ -12,6 +12,8 @@ const { MY_RECIPES_BASE_URL } = environment;
   providedIn: 'root'
 })
 export class MyRecipesService {
+  private recipesSubject = new BehaviorSubject<Array<MyRecipeWithId>>([]);
+  recipes$ = this.recipesSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +22,9 @@ export class MyRecipesService {
   }
 
   getAll(): Observable<Array<MyRecipeWithId>> {
-    return this.http.get<Array<MyRecipeWithId>>(`${MY_RECIPES_BASE_URL}/my-recipes`);
+    return this.http.get<Array<MyRecipeWithId>>(`${MY_RECIPES_BASE_URL}/my-recipes`).pipe(
+      tap((recipes) => this.recipesSubject.next(recipes))
+    );
   }
 
   getById(id: string | null): Observable<MyRecipeWithId> {
