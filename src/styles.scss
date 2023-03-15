@@ -161,8 +161,27 @@ app-my-recipes {
   padding: .2rem;
   font-size: 1rem;
 
+  &:not(button) {
+    padding-bottom: 0;
+  }
+
   &:not(textarea) {
     height: 1.8rem;
+  }
+}
+
+select.form-control {
+  padding-top: 0;
+}
+
+button.form-control {
+  line-height: 1;
+  padding-bottom: 6px;
+  border-radius: 0;
+  border: 1.5px solid #0000006e;
+
+  &.chrome-button {
+    padding-bottom: 2px;
   }
 }
 
@@ -185,4 +204,25 @@ app-my-recipes {
 
 textarea {
   resize: none;
+}
+
+input,
+textarea,
+select,
+option {
+  font-family: "Martel Sans", sans-serif;
+  border-radius: 0;
+  border: 1.5px solid #0000006e;
+}
+
+input, select, textarea {
+  //outline-offset: unset;
+  //outline: blue solid 2px;
+  //border: none;
+  outline: none;
+
+  &:focus {
+    border-color: #518bbc;
+    border-width: 2.5px;
+  }
 }
