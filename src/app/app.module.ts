@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { RecipesModule } from './recipes/recipes.module';
+import { AuthGuard } from './core/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,7 @@ import { RecipesModule } from './recipes/recipes.module';
       },
     }),
   ],
-  providers: [],
+  providers: [AuthGuard],
   exports: [],
   bootstrap: [AppComponent],
 })

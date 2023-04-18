@@ -10,6 +10,7 @@ import { RecipeDetailsComponent } from './recipes/components/recipe-details/reci
 import { RecipeCategoriesComponent } from './recipes/components/recipe-categories/recipe-categories.component';
 import { MyRecipesComponent } from './recipes/components/my-recipes/my-recipes.component';
 import { EditRecipeFormComponent } from './recipes/components/edit-recipe-form/edit-recipe-form.component';
+import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,13 +20,18 @@ const routes: Routes = [
   { path: 'categories', component: RecipeCategoriesComponent },
   { path: 'categories/:id', component: RecipesComponent },
   { path: 'categories/recipes/:id', component: RecipeDetailsComponent },
-  { path: 'my-recipes', component: MyRecipesComponent },
+  {
+    path: 'my-recipes',
+    component: MyRecipesComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'my-recipes/:id', component: RecipeDetailsComponent },
-  { path: 'my-recipes/:id/update', component: EditRecipeFormComponent }
+  { path: 'my-recipes/:id/update', component: EditRecipeFormComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
