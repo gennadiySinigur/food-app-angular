@@ -1,5 +1,6 @@
-<div class="header"
-     [ngClass]="{'blocked': (blockUIService.isBlocked$ | async) }"
+<div
+  class="header"
+  [ngClass]="{ blocked: (blockUIService.isBlocked$ | async) }"
 >
   <div class="container">
     <nav class="navbar">
@@ -9,30 +10,43 @@
         <a
           routerLink="/"
           routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{exact: true}"  class="nav-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link"
         >
           Home
         </a>
 
-        <a routerLink="/about" routerLinkActive="active-link"  class="nav-link">
+        <a routerLink="/about" routerLinkActive="active-link" class="nav-link">
           About
         </a>
 
-        <a routerLink="/categories" routerLinkActive="active-link"  class="nav-link">
+        <a
+          routerLink="/categories"
+          routerLinkActive="active-link"
+          class="nav-link"
+        >
           Categories
         </a>
 
-        <a routerLink="/my-recipes" routerLinkActive="active-link" class="nav-link">
+        <a
+          routerLink="/my-recipes"
+          routerLinkActive="active-link"
+          class="nav-link"
+        >
           My Recipes
         </a>
 
-        <a routerLink="/registration" routerLinkActive="active-link"  class="nav-link">
-          Register
+        <a
+          *ngIf="authService.isAuthenticated$ | async; else loginBlock"
+          (click)="logout()"
+          class="button nav-link"
+        >
+          Logout
         </a>
 
-        <a routerLink="/login" routerLinkActive="active-link"  class="nav-link">
-          Login
-        </a>
+        <ng-template #loginBlock>
+          <a (click)="login()" class="button nav-link">Login</a>
+        </ng-template>
       </div>
     </nav>
   </div>
